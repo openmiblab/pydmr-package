@@ -16,7 +16,7 @@ readme = "README.rst"
 authors = [
   { name = "Steven Sourbron", email = "s.sourbron@sheffield.ac.uk" },
 ]
-license = { file = "LICENSE" }
+license = { text = "Apache-2.0" }
 classifiers = [
   # How mature is this project? Common values are
   #   3 - Alpha
@@ -42,7 +42,7 @@ requires-python = ">=3.10"
 
 
 [project.urls]
-"Homepage" = "https://openmiblab.github.io/pydmr/"
+"Homepage" = "https://openmiblab.github.io//"
 "Source Code" = 'https://github.com/openmiblab/pydmr'
 
 [tool.setuptools]
