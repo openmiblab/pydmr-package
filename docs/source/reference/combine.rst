@@ -1,0 +1,14 @@
+.. __combine:
+
+
+*******
+Combine
+*******
+
+.. currentmodule:: pydmr
+
+.. autosummary::
+   :toctree: ../api/
+   :template: autosummary.rst
+
+   concat

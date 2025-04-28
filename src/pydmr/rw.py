@@ -72,7 +72,7 @@ def write(path:str, dmr:dict, format='flat'):
             length += len(dmr['columns'])    
         if len(values) < length:
             raise ValueError(
-                f"Each dmr['data'] value must have at {length} elements. "
+                f"Each dmr['data'] value must have at least {length} elements. "
                 f"The required 'description', 'unit', 'type' and the "
                 f"optional columns {columns}."
             )

@@ -13,4 +13,5 @@ describing what they are and what they do.
    :maxdepth: 2
 
    rw
+   combine
    
