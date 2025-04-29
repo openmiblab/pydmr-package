@@ -108,7 +108,7 @@ def write(path:str, dmr:dict, format='flat'):
                     "Please add it to the dictionary."
                 )
             data_type = np.dtype(data[key[-1]][2])
-            write_values = np.asarray(values).astype(data_type)
+            write_values = np.asarray(values).astype(data_type) # is this ovewriting values?
             if not np.array_equal(write_values, values):
                 raise ValueError(
                     f"rois parameter {key[-1]} has wrong data type. "
@@ -258,6 +258,10 @@ def write(path:str, dmr:dict, format='flat'):
         for key, values in rois.items():
             data_type = np.dtype(data[key[-1]][2])
             write_values = np.asarray(values).astype(data_type)
+            if data_type=='bool':
+                write_values = write_values.astype(str)
+                write_values[write_values=='True'] = '1'
+                write_values[write_values=='False'] = '0'
             col = list(key) + list(write_values) + [""] * (max_len - len(values))  # Pad shorter columns
             columns.append(col)
 
