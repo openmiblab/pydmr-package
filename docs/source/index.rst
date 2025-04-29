@@ -19,7 +19,7 @@ distribute the software without restrictions.
    :maxdepth: 2
    :hidden:
    
-   user_guide/index
+   format
    reference/index
    examples/index
    releases/index

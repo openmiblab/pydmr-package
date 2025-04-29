@@ -1,6 +1,9 @@
-********************
-The .dmr data format
-********************
+.. _dmr-format:
+
+
+##############
+The dmr format
+##############
 
 The .dmr (dynamic mr) data format is a simple csv-based format for storing
 dynamic region-of-interest based data. It is a zipped folder with some 
@@ -56,26 +59,38 @@ graphical user interfaces.
 What is the .dmr python API?
 ----------------------------
 
-The `dcmri` package includes functions `dcmri.read_dmr` and `dcmri.write_dmr` 
-for easily creating and reading dmr files programmatically. These 
-can also be used to check existing data for compliance with the 
-.dmr standard. 
+The `pydmr` package includes functions `pydmr.read` and `pydmr.write` 
+for easily creating and reading dmr files programmatically. 
 
-`dcmri.read_dmr` will throw an error with an informative error 
-message when reading a file that is not properly formatted. Equivalently, 
-`dcmri.write_dmr` will raise an informative exception when attempting to write 
+`pydmr.read` returns an in-memory representation of a dmr data file 
+as a simple dictionary or table format. These can be used as they are 
+are can easily be recast into a `pandas.DataFrame`` for 
+further processing.
+
+The python API also contains additional functions for manipulating 
+.dmr files, such as concatentation of multiple dmr files into a single 
+dmr file.
+
+How can I check that my data is dmr compliant?
+----------------------------------------------
+
+`pydmr.read` and `pydmr.write` can also be used to check existing 
+data or in-menory objects for compliance with the .dmr standard. 
+
+`pydmr.read` will throw an error with an informative error 
+message when reading a file that is not properly formatted. 
+
+`pydmr.write` will raise an informative exception when attempting to write 
 an improperly formatted dictionary ot csv. 
 
-`dcmri.read_dmr` also produces 
-resulst in a form that can easily be recast as a pandas DataFrame for 
-further processing.
 
 Where can I find examples of .dmr data?
 ---------------------------------------
 
-The `dcmri.fetch` function retrieves data in .dmr format from online 
-repositories. See the `examples <https://dcmri.org/generated/examples/index.html>`_ 
-for notebooks where these files are read and the data are processed.
+Online repositories with dmr data:
+
+- `TRISTAN gadoxetate kinetics <https://zenodo.org/records/15301607>`_
+- `Magnetic resonance renography <https://zenodo.org/records/15285017>`_
 
 Details of the .dmr format
 --------------------------
@@ -285,3 +300,6 @@ file would look like this:
       - Flip angle
       - deg
       - float
+
+
+
