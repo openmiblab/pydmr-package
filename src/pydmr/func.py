@@ -1,15 +1,19 @@
+import os
 import pydmr.rw
 
 
 def concat(
         files:list, 
         result:str,
+        cleanup=False,
     ):
     """Concatenate a list of dmr files into a single dmr file
 
     Args:
         files (list): dmr files to concatenate
         result (str): file path to the resulting dmr file
+        cleanup (bool, optional): If set to True, the original files 
+          are deleted after concatenating.
     Raises:
         ValueError: if duplicate indices exist in the file set.
     """
@@ -51,3 +55,10 @@ def concat(
                     dmr[var] = dmr[var] | dmr_file[var]
 
     pydmr.rw.write(result, dmr)
+
+    if cleanup:
+        for file in files:
+            if file[-4:] == ".dmr":
+                os.remove(file+'.zip')
+            else:
+                os.remove(file+'.dmr.zip')
