@@ -7,6 +7,9 @@ from io import TextIOWrapper
 import numpy as np
 
 
+from pydmr.pydict import dict_keep, dict_reformat, _nested_dict_to_multi_index
+
+
 
 def write(path:str, dmr:dict, format='flat'):
     """Write data to disk in .dmr format.
@@ -44,6 +47,7 @@ def write(path:str, dmr:dict, format='flat'):
  
     Raises:
         ValueError: if the data are not dmr-compliant formatted.
+        ImportError: if an optional package is not installed
     """
 
     #
@@ -319,7 +323,7 @@ def write(path:str, dmr:dict, format='flat'):
 
 
 
-def read(path:str, format='flat'):
+def read(path:str, format='flat', subject=None, study=None, parameter=None):
     """Read .dmr data from disk.
 
     Args:
@@ -331,8 +335,18 @@ def read(path:str, format='flat'):
           as flat dictionaries with a multi-index consisting of 
           (subject, study, parameter). If format='nest', these values 
           are returned as nested dictionaries with 3 levels. If 
-          format='table', the values are returned as a list of lists. 
+          format='table', the values are returned as a list of lists.
+          If format is 'pandas' the results are pandas dataframes.  
           Defaults to 'flat'.
+        subject (str or list, optional): subject or list of subjects 
+          to return. If not provided, all subjects are returned. 
+          Defaults to None.
+        study (str or list, optional): subject or list of subjects 
+          to return. If not provided, all studies are returned. 
+          Defaults to None.
+        parameter (str or list, optional): parameter or list of 
+          parameters to return. If not provided, all parameters are returned. 
+          Defaults to None.
 
     Raises:
         ValueError: If the data on disk are not correctly formatted.
@@ -363,8 +377,6 @@ def read(path:str, format='flat'):
         csv_files = [f for f in z.namelist() if f.endswith(".csv")]  
         if 'data.csv' not in csv_files:
             raise ValueError("A .dmr file must contain a data.csv file.")    
-        if ('pars.csv' not in csv_files) and ('rois.csv' not in csv_files):
-            raise ValueError("A .dmr file must contain a pars.csv, a rois.csv file, or both.") 
         
         
         # Read data dictionary
@@ -399,7 +411,8 @@ def read(path:str, format='flat'):
                 for p in pars_list:
                     if len(p) != 4:
                         raise ValueError(
-                            f"Each pars row must have 4 elements: "
+                            f"Error in pars row {p}. "
+                            f"Each row must have 4 elements: "
                             f"subject, study, parameter, value. "
                             f"Correct the data in pars.csv"
                         )
@@ -483,76 +496,26 @@ def read(path:str, format='flat'):
                         ) 
                     sdev[tuple(p[:3])] = float(p[3])
 
-        # Convert to required return format
-        dmr = {}
-        if format == 'table':
-            data = [[key] + value for key, value in data.items()]
-        dmr['data'] = data
+        # Create dictionary
+        dmr = {'data': data}
         if len(data_headers) > 4:
             dmr['columns'] = data_headers[4:]
         if 'pars.csv' in csv_files:
-            if format == 'nest':
-                pars = _multi_index_to_nested_dict(pars)
-            elif format == 'table':
-                pars = [list(key) + [value] for key, value in pars.items()]
             dmr['pars'] = pars
-        if 'rois.csv' in csv_files: 
-            if format == 'nest':
-                rois = _multi_index_to_nested_dict(rois)
-            elif format == 'table':
-                rois = [list(key) + [value] for key, value in rois.items()]
+        if 'rois.csv' in csv_files:
             dmr['rois'] = rois
         if 'sdev.csv' in csv_files:
-            if format == 'nest':
-                sdev = _multi_index_to_nested_dict(sdev)
-            elif format == 'table':
-                sdev = [list(key) + [value] for key, value in sdev.items()]
             dmr['sdev'] = sdev
+
+        # Extract requested fields
+        dmr = dict_keep(dmr, subject, study, parameter)
+
+        # Convert to required return format
+        dmr = dict_reformat(dmr, format)
 
     return dmr
 
 
-def _multi_index_to_nested_dict(multi_index_dict):
-    """
-    Converts a dictionary with tuple keys (multi-index) into a nested dictionary.
-    
-    Parameters:
-        multi_index_dict (dict): A dictionary where keys are tuples of indices.
-
-    Returns:
-        dict: A nested dictionary where each level corresponds to an index in the tuple.
-    """
-    nested_dict = {}
-
-    for key_tuple, value in multi_index_dict.items():
-        current_level = nested_dict  # Start at the root level
-        for key in key_tuple[:-1]:  # Iterate through all but the last key
-            current_level = current_level.setdefault(key, {})  # Go deeper/create dict
-        current_level[key_tuple[-1]] = value  # Assign the final value
-
-    return nested_dict
 
 
-def _nested_dict_to_multi_index(nested_dict, parent_keys=()):
-    """
-    Converts a nested dictionary into a dictionary with tuple keys (multi-index).
-
-    Parameters:
-        nested_dict (dict): A nested dictionary.
-        parent_keys (tuple): Used for recursion to keep track of the current key path.
-
-    Returns:
-        dict: A dictionary where keys are tuples representing the hierarchy.
-    """
-    flat_dict = {}
-
-    for key, value in nested_dict.items():
-        new_keys = parent_keys + (key,)  # Append the current key to the path
-
-        if isinstance(value, dict):  # If the value is a dict, recurse
-            flat_dict.update(_nested_dict_to_multi_index(value, new_keys))
-        else:  # If it's a final value, store it with the multi-index key
-            flat_dict[new_keys] = value
-
-    return flat_dict
 

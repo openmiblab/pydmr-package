@@ -88,6 +88,8 @@ def test_rw():
     assert dmr['pars']['002']['Followup']['n0'] == 10
     assert dmr['pars']['002']['Followup']['Checked'] is False
 
+    dmr = pydmr.read(file, 'pandas')
+
     # Cleanup
     os.remove(file + '.zip')
 

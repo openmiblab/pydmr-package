@@ -12,3 +12,6 @@ Combine
    :template: autosummary.rst
 
    concat
+   keep
+   drop
+   metadata
