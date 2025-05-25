@@ -1,13 +1,11 @@
-pydmr 0.0.1
+pydmr 0.0.2
 ===========
 
 Summary
 -------
 
-- Bug fix in read
-- concat() function
-- docs improvements
-
+- Extended API
+- small tweaks in format definition
 
 Contributors
 ------------
