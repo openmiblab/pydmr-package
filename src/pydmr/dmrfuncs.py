@@ -124,15 +124,16 @@ def concat(
 
         for var in ['rois', 'pars', 'sdev']:
             if var in dmr_file:
-                if i==0:
+                if var not in dmr:
                     dmr[var] = dmr_file[var]
-                elif set(dmr_file[var].keys()) <= set(dmr[var].keys()):
+                elif set(dmr_file[var].keys()).isdisjoint(set(dmr[var].keys())):
+                    dmr[var] = dmr[var] | dmr_file[var]
+                else:
                     raise ValueError(
                         f"Cannot concatenate: duplicate indices "
                         f"in {var}.csv of {dmr_file}."
                     )
-                else:
-                    dmr[var] = dmr[var] | dmr_file[var]
+                    
 
     pydmr.rw.write(result, dmr)
 
@@ -144,3 +145,59 @@ def concat(
                 os.remove(file+'.dmr.zip')
 
     return result
+
+
+def append(
+        file:str, 
+        dmr:dict,
+        format = 'flat',
+    ):
+    """Concatenate a list of dmr files into a single dmr file
+
+    Args:
+        file (list): dmr file to append to
+        dmr (str): data to append to file
+        format (str, optional): format of the data.
+    Returns:
+        str: The appended file
+    """
+
+    # Read flat dmr data
+    dmr_orig = pydmr.rw.read(file)
+
+    # Convert new data to flat
+    dmr = pydmr.pydict.dict_to_flat(dmr, format)
+
+    # Check dat all data dictionaries have the same columns
+    data_error = False
+    if 'columns' in dmr:
+        if 'columns' not in dmr_orig:
+            data_error = True
+        elif dmr_orig['columns'] != dmr['columns']:
+            data_error = True
+    else:
+        if 'columns' in dmr_orig:
+            data_error = True
+    if data_error:
+        raise ValueError(
+            'Cannot append: all data.csv files must have '
+            'the same optional variables (columns).'
+        )        
+
+    dmr_orig['data'] = dmr_orig['data'] | dmr['data']
+
+    for var in set(dmr.keys()) - {'data'}:
+        if var in dmr_orig:
+            if set(dmr[var].keys()).isdisjoint(set(dmr_orig[var].keys())):
+                dmr_orig[var] = dmr_orig[var] | dmr[var]
+            else:
+                raise ValueError(
+                    f"Cannot append: duplicate indices "
+                    f"in {var}.csv of {dmr}."
+                )
+        else:
+            dmr_orig[var] = dmr[var]
+
+    pydmr.rw.write(file, dmr_orig)
+
+    return file

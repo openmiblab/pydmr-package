@@ -7,7 +7,12 @@ from io import TextIOWrapper
 import numpy as np
 
 
-from pydmr.pydict import dict_keep, dict_reformat, _nested_dict_to_multi_index
+from pydmr.pydict import (
+    dict_keep, 
+    dict_reformat, 
+    _nested_dict_to_multi_index,
+    dict_to_flat,
+)
 
 
 
@@ -54,18 +59,9 @@ def write(path:str, dmr:dict, format='flat'):
     # Check dmr compliance
     #
 
-    if not 'data' in dmr:
-        raise ValueError("data key is required in dmr dictionary")
-    data = dmr['data']
+    dmr = dict_to_flat(dmr, format)
 
-    # Convert to dictionary
-    if format=='table':
-        if not isinstance(data, list):
-            raise ValueError("dmr['data'] must be a list")
-        data = {dat[0]: dat[1:] for dat in data}
-    elif not isinstance(data, dict):
-        raise ValueError("dmr['data'] must be a dictionary")
-    
+    data = dmr['data']
     for key, values in data.items():
         if not isinstance(values, list):
             raise ValueError(
@@ -83,20 +79,6 @@ def write(path:str, dmr:dict, format='flat'):
         
     if 'rois' in dmr:
         rois = dmr['rois']
-
-        # convert to flat dictionary
-        if format=='flat':
-            if not isinstance(rois, dict):
-                raise ValueError("dmr['rois'] must be a dictionary")
-        elif format=='nest':
-            if not isinstance(rois, dict):
-                raise ValueError("dmr['rois'] must be a dictionary")
-            rois = _nested_dict_to_multi_index(rois)
-        elif format=='table':
-            if not isinstance(rois, list):
-                raise ValueError("dmr['rois'] must be a list")
-            rois = {tuple(roi[:3]): roi[4] for roi in rois}
-
         for roi in rois.keys():
             if len(roi) != 3:
                 raise ValueError("Each rois key must be a 3-element tuple")
@@ -112,7 +94,7 @@ def write(path:str, dmr:dict, format='flat'):
                     "Please add it to the dictionary."
                 )
             data_type = np.dtype(data[key[-1]][2])
-            write_values = np.asarray(values).astype(data_type) # is this ovewriting values?
+            write_values = np.asarray(values).astype(data_type) 
             if not np.array_equal(write_values, values):
                 raise ValueError(
                     f"rois parameter {key[-1]} has wrong data type. "
@@ -122,20 +104,6 @@ def write(path:str, dmr:dict, format='flat'):
             
     if 'pars' in dmr:
         pars = dmr['pars']
-
-        # Convert to flat dictionary
-        if format=='flat':
-            if not isinstance(pars, dict):
-                raise ValueError("dmr['pars'] must be a dictionary")
-        elif format=='nest':
-            if not isinstance(pars, dict):
-                raise ValueError("dmr['pars'] must be a dictionary")
-            pars = _nested_dict_to_multi_index(pars)
-        elif format=='table':
-            if not isinstance(pars, list):
-                raise ValueError("dmr['pars'] must be a list")
-            pars = {tuple(par[:3]): par[4] for par in pars}
-
         for par in pars.keys():
             if len(par) != 3:
                 raise ValueError("Each pars key must be a 3-element tuple")
@@ -152,35 +120,35 @@ def write(path:str, dmr:dict, format='flat'):
                 )
             data_type = data[key[-1]][2]
             if data_type == 'str':
-                if not isinstance(value, str):
+                if not isinstance(value, (str, np.str_, np.unicode_)):
                     raise ValueError(
                         f"pars parameter {key[-1]} must be a string. "
                         "Please correct the data in pars.csv "
                         "or correct the data type in data.csv"
                     )
             elif data_type == 'float':
-                if not isinstance(value, (float, int)):
+                if not isinstance(value, (float, np.floating, int)):
                     raise ValueError(
                         f"pars parameter {key[-1]} must be a float. "
                         "Please correct the data in pars.csv "
                         "or correct the data type in data.csv"
                     )
             elif data_type == 'bool':
-                if not isinstance(value, bool):
+                if not isinstance(value, (bool, np.bool_)):
                     raise ValueError(
                         f"pars parameter {key[-1]} must be a boolean. "
                         "Please correct the data in pars.csv "
                         "or correct the data type in data.csv"
                     )
             elif data_type == 'int':
-                if not isinstance(value, int):
+                if not isinstance(value, (int, np.integer)):
                     raise ValueError(
                         f"pars parameter {key[-1]} must be an integer. "
                         "Please correct the data in pars.csv "
                         "or correct the data type in data.csv"
                     )
             elif data_type == 'complex':
-                if not isinstance(value, complex):
+                if not isinstance(value, (complex, np.complexfloating)):
                     raise ValueError(
                         f"pars parameter {key[-1]} must be a complex number. "
                         "Please correct the data in pars.csv"
@@ -194,19 +162,6 @@ def write(path:str, dmr:dict, format='flat'):
                 "provided."
             )
         sdev = dmr['sdev']
-
-        # Convert to flat dictionary
-        if format=='flat':
-            if not isinstance(sdev, dict):
-                raise ValueError("dmr['sdev'] must be a dictionary")
-        elif format=='nest':
-            if not isinstance(sdev, dict):
-                raise ValueError("dmr['sdev'] must be a dictionary")
-            sdev = _nested_dict_to_multi_index(sdev)
-        elif format=='table':
-            if not isinstance(sdev, list):
-                raise ValueError("dmr['sdev'] must be a list")
-            sdev = {tuple(sd[:3]): sd[4] for sd in sdev}
 
         if not (sdev.keys() <= pars.keys()):
             raise ValueError(

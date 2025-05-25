@@ -5,6 +5,74 @@ except:
     import_error = True
 
 
+def dict_to_flat(dmr, format):
+    # TODO extend to format=pandas
+
+    dmr_flat = {}
+
+    if not 'data' in dmr:
+        raise ValueError("data key is required in dmr dictionary")
+
+    data = dmr['data']
+    if format=='table':
+        if not isinstance(data, list):
+            raise ValueError("dmr['data'] must be a list")
+        data = {dat[0]: dat[1:] for dat in data}
+    elif not isinstance(data, dict):
+        raise ValueError("dmr['data'] must be a dictionary")
+    dmr_flat['data'] = data
+
+
+    if 'rois' in dmr:
+        rois = dmr['rois']
+        if format=='flat':
+            if not isinstance(rois, dict):
+                raise ValueError("dmr['rois'] must be a dictionary")
+        elif format=='nest':
+            if not isinstance(rois, dict):
+                raise ValueError("dmr['rois'] must be a dictionary")
+            rois = _nested_dict_to_multi_index(rois)
+        elif format=='table':
+            if not isinstance(rois, list):
+                raise ValueError("dmr['rois'] must be a list")
+            rois = {tuple(roi[:3]): roi[4] for roi in rois}
+        dmr_flat['rois'] = rois
+
+
+    if 'pars' in dmr:
+        pars = dmr['pars']
+        if format=='flat':
+            if not isinstance(pars, dict):
+                raise ValueError("dmr['pars'] must be a dictionary")
+        elif format=='nest':
+            if not isinstance(pars, dict):
+                raise ValueError("dmr['pars'] must be a dictionary")
+            pars = _nested_dict_to_multi_index(pars)
+        elif format=='table':
+            if not isinstance(pars, list):
+                raise ValueError("dmr['pars'] must be a list")
+            pars = {tuple(par[:3]): par[4] for par in pars}
+        dmr_flat['pars'] = pars
+
+
+    if 'sdev' in dmr:
+        sdev = dmr['sdev']
+        if format=='flat':
+            if not isinstance(sdev, dict):
+                raise ValueError("dmr['sdev'] must be a dictionary")
+        elif format=='nest':
+            if not isinstance(sdev, dict):
+                raise ValueError("dmr['sdev'] must be a dictionary")
+            sdev = _nested_dict_to_multi_index(sdev)
+        elif format=='table':
+            if not isinstance(sdev, list):
+                raise ValueError("dmr['sdev'] must be a list")
+            sdev = {tuple(sd[:3]): sd[4] for sd in sdev}
+        dmr_flat['sdev'] = sdev
+
+    return dmr_flat
+
+
 def dict_reformat(dmr, format):
 
     if format=='pandas':
