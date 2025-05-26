@@ -8,7 +8,7 @@
 project = 'pydmr'
 copyright = '2025, pydmr contributors'
 author = 'pydmr contributors'
-release = '0.0.2'
+release = '0.0.3'
 
 # -- Path setup --------------------------------------------------------------
 # If extensions (or modules to document with autodoc) are in another directory,
