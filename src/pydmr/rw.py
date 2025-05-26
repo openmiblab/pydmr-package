@@ -174,9 +174,11 @@ def write(path:str, dmr:dict, format='flat'):
                 raise ValueError("sdev values must be float.")
             
 
-    # make folder 
+    # make folder
     if path[-4:] == ".dmr":
         path = path[:-4]
+    elif path[-8:] == ".dmr.zip":
+        path = path[:-8]
 
     if not os.path.exists(path):
         os.makedirs(path)

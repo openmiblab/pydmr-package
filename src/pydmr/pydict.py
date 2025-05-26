@@ -23,6 +23,10 @@ def dict_to_flat(dmr, format):
     dmr_flat['data'] = data
 
 
+    if 'columns' in dmr:
+        dmr_flat['columns'] = dmr['columns']
+
+
     if 'rois' in dmr:
         rois = dmr['rois']
         if format=='flat':
