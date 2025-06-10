@@ -120,7 +120,7 @@ def write(path:str, dmr:dict, format='flat'):
                 )
             data_type = data[key[-1]][2]
             if data_type == 'str':
-                if not isinstance(value, (str, np.str_, np.unicode_)):
+                if not isinstance(value, (str, np.str_)):
                     raise ValueError(
                         f"pars parameter {key[-1]} must be a string. "
                         "Please correct the data in pars.csv "
