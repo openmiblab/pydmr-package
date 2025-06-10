@@ -1,0 +1,27 @@
+{
+  "title": "pydmr: A python interface for the dmr data format",
+  "upload_type": "software",
+  "description": "See the documentation on https://openmiblab.github.io/pydmr",
+  "creators": [
+    {
+      "name": "Sourbron, Steven",
+      "affiliation": "University of Sheffield"
+    }
+  ],
+  "keywords": ["data", "metadata", "dmr format", "API"],
+  "license": "Apache-2.0",
+  "version": "0.0.4",
+  "publication_date": "2025-06-10",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://openmiblab.github.io/pydmr"
+    }
+  ],
+  "url": "https://miblab.org",
+  "communities": [
+    {
+      "identifier": "miblab"
+    }
+  ]
+}

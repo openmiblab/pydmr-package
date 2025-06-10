@@ -25,12 +25,11 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
-          pip install .
           pip list
 
       - name: Install pydmr
         run: |
-          pip install -e .[extensions]
+          pip install -e .[pandas]
 
       - name: Test with pytest
         run: pytest --cov=pydmr --cov-report=xml
