@@ -1,0 +1,879 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The dmr format &#8212; pydmr 0.0.3 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=47de8214"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-64ZSJ8Z1MX"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-64ZSJ8Z1MX');
+            </script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-64ZSJ8Z1MX');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'format';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference/index.html" />
+    <link rel="prev" title="pydmr documentation" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/tristan-logo.jpg" class="logo__image only-light" alt="pydmr 0.0.3 documentation - Home"/>
+    <img src="_static/tristan-logo.jpg" class="logo__image only-dark pst-js-only" alt="pydmr 0.0.3 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    The dmr format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="releases/index.html">
+    Releases
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about/index.html">
+    About
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/openmiblab/pydmr" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    The dmr format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="releases/index.html">
+    Releases
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about/index.html">
+    About
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/openmiblab/pydmr" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">The dmr format</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="the-dmr-format">
+<span id="dmr-format"></span><h1>The dmr format<a class="headerlink" href="#the-dmr-format" title="Link to this heading">#</a></h1>
+<p>The .dmr (dynamic mr) data format is a simple csv-based format for storing
+dynamic region-of-interest based data. It is a zipped folder with some
+or all of the following csv files:</p>
+<ul class="simple">
+<li><p>rois.csv: ROI based time curves for one or more subjects and studies</p></li>
+<li><p>pars.csv: Parameters such as sequence parameters or subject properties</p></li>
+<li><p>sdev.csv: Standard deviations for the parameters in pars.csv</p></li>
+<li><p>data.csv: Data dictionary for all parameters in the above files
+with full description, units, data type and other characteristics.</p></li>
+</ul>
+<p>A single .dmr folder can contain data for one or more subject, and
+for one or more studies per subject.</p>
+<section id="why-another-data-format">
+<h2>Why another data format?<a class="headerlink" href="#why-another-data-format" title="Link to this heading">#</a></h2>
+<p>Region-of-interest based data in dynamic MRI are typically saved and
+shared in spreadsheets - mostly excel. The type of data is always very
+similar (time curves and parameters) but they can be encoded
+in an infinite variety of ways (rows, columns, multiple or single
+tabs, multiple or single files, etc.).</p>
+<p>When sharing data between
+collaborators, even within the same team, significant amount of time
+is therefore spent reformatting excel sheets from one collaborator
+to a format suitable as input for the pipelines written by another.
+This costs substantial amounts of time and effort - especially because
+the differences in data formats also propagate into different
+code interfaces, which also need to be harmonized.</p>
+<p>This variability and effort spent refactoring data and code is wholly
+unnecessary as the different ways of encoding these data in excel are
+equivalent - there is seldom a good reason for the differences.
+Significant time and effort can therefore be saved at no cost at all
+by deciding on a single standardised way of encoding ROI-based
+data in spreadsheet form, and writing an API for easy reading and
+writing in python.</p>
+</section>
+<section id="why-a-csv-format">
+<h2>Why a csv format?<a class="headerlink" href="#why-a-csv-format" title="Link to this heading">#</a></h2>
+<p>A csv-based format was chosen because csv is simple and
+non-proprietary format that can be read and written with built-in
+python packages.</p>
+<p>csv data can also be read with excel or
+other common programs such as google sheets, and they can also be
+written in the same way. This is important because not everyone codes
+and ROI-based data are often inspected and further analysed with
+graphical user interfaces.</p>
+</section>
+<section id="what-is-the-dmr-python-api">
+<h2>What is the .dmr python API?<a class="headerlink" href="#what-is-the-dmr-python-api" title="Link to this heading">#</a></h2>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr</span></code> package includes functions <a class="reference internal" href="api/pydmr.read.html#pydmr.read" title="pydmr.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.read</span></code></a> and <a class="reference internal" href="api/pydmr.write.html#pydmr.write" title="pydmr.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.write</span></code></a>
+for easily creating and reading dmr files programmatically.</p>
+<p><a class="reference internal" href="api/pydmr.read.html#pydmr.read" title="pydmr.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.read</span></code></a> returns an in-memory representation of a dmr data file
+as a simple dictionary or table format. These can be used as they are
+are can easily be recast into a <code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame`</span></code> for
+further processing.</p>
+<p>The python API also contains additional functions for manipulating
+.dmr files, such as concatentation of multiple dmr files into a single
+dmr file.</p>
+</section>
+<section id="how-can-i-check-that-my-data-is-dmr-compliant">
+<h2>How can I check that my data is dmr compliant?<a class="headerlink" href="#how-can-i-check-that-my-data-is-dmr-compliant" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="api/pydmr.read.html#pydmr.read" title="pydmr.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.read</span></code></a> and <a class="reference internal" href="api/pydmr.write.html#pydmr.write" title="pydmr.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.write</span></code></a> can also be used to check existing
+data or in-menory objects for compliance with the .dmr standard.</p>
+<p><a class="reference internal" href="api/pydmr.read.html#pydmr.read" title="pydmr.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.read</span></code></a> will throw an error with an informative error
+message when reading a file that is not properly formatted.</p>
+<p><a class="reference internal" href="api/pydmr.write.html#pydmr.write" title="pydmr.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pydmr.write</span></code></a> will raise an informative exception when attempting to write
+an improperly formatted dictionary ot csv.</p>
+</section>
+<section id="where-can-i-find-examples-of-dmr-data">
+<h2>Where can I find examples of .dmr data?<a class="headerlink" href="#where-can-i-find-examples-of-dmr-data" title="Link to this heading">#</a></h2>
+<p>Online repositories with dmr data:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://zenodo.org/records/15301607">TRISTAN gadoxetate kinetics</a></p></li>
+<li><p><a class="reference external" href="https://zenodo.org/records/15285017">Magnetic resonance renography</a></p></li>
+</ul>
+</section>
+<section id="details-of-the-dmr-format">
+<h2>Details of the .dmr format<a class="headerlink" href="#details-of-the-dmr-format" title="Link to this heading">#</a></h2>
+<p>A .drm file is simply a zipped folder with one or more csv files.
+data.csv is a required file but rois.csv, pars.csv and sdev.csv are
+optional and may or may not be present.</p>
+<section id="rois-csv">
+<h3>rois.csv<a class="headerlink" href="#rois-csv" title="Link to this heading">#</a></h3>
+<p>Signal-time curves for regions-of-interest can be found in the
+rois.csv file of the dmr folder. The top row lists the subjects,
+the second row lists the studies, and the third row names the data
+series. Then below this header information the data are listed as
+columns. They do not need to have the same length, and not all subjects
+need to have the same studies and series.</p>
+<p>Consider the example of two subjects S1, S2 with two studies
+each (visit V1 and V2), and two ROI curves per study (tumor-T, artery-A).
+For the sake of illustration we wil assume each curve has 3 time points.
+The file rois.csv would contain the following table (ROI values randomly chosen):</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">rois.csv example</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>S1</p></th>
+<th class="head"><p>S1</p></th>
+<th class="head"><p>S1</p></th>
+<th class="head"><p>S1</p></th>
+<th class="head"><p>S2</p></th>
+<th class="head"><p>S2</p></th>
+<th class="head"><p>S2</p></th>
+<th class="head"><p>S2</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>V1</p></th>
+<th class="head"><p>V1</p></th>
+<th class="head"><p>V2</p></th>
+<th class="head"><p>V2</p></th>
+<th class="head"><p>V1</p></th>
+<th class="head"><p>V1</p></th>
+<th class="head"><p>V2</p></th>
+<th class="head"><p>V2</p></th>
+</tr>
+<tr class="row-odd"><th class="head"><p>T</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>T</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>T</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>T</p></th>
+<th class="head"><p>A</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>120</p></td>
+<td><p>320</p></td>
+<td><p>226</p></td>
+<td><p>158</p></td>
+<td><p>95</p></td>
+<td><p>185</p></td>
+<td><p>417</p></td>
+<td><p>260</p></td>
+</tr>
+<tr class="row-odd"><td><p>160</p></td>
+<td><p>301</p></td>
+<td><p>255</p></td>
+<td><p>198</p></td>
+<td><p>83</p></td>
+<td><p>120</p></td>
+<td><p>450</p></td>
+<td><p>213</p></td>
+</tr>
+<tr class="row-even"><td><p>178</p></td>
+<td><p>398</p></td>
+<td><p>201</p></td>
+<td><p>123</p></td>
+<td><p>65</p></td>
+<td><p>122</p></td>
+<td><p>496</p></td>
+<td><p>201</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pars-csv">
+<h3>pars.csv<a class="headerlink" href="#pars-csv" title="Link to this heading">#</a></h3>
+<p>The pars.csv file contains any parameters that are provided with the ROI data.
+The parameter values are listed in long format with columns subject,
+study, parameter name, and parameter value.</p>
+<p>Consider the previous example of two subjects and two visits. If
+sequence parameters TR and FA are provided for each subject and each
+visit, the pars.csv file looks like this:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">pars.csv example</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>subject</p></th>
+<th class="head"><p>study</p></th>
+<th class="head"><p>parameter</p></th>
+<th class="head"><p>value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S1</p></td>
+<td><p>V1</p></td>
+<td><p>TR</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>S1</p></td>
+<td><p>V1</p></td>
+<td><p>FA</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p>S1</p></td>
+<td><p>V2</p></td>
+<td><p>TR</p></td>
+<td><p>5.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>S1</p></td>
+<td><p>V2</p></td>
+<td><p>FA</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-even"><td><p>S2</p></td>
+<td><p>V1</p></td>
+<td><p>TR</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p>S2</p></td>
+<td><p>V1</p></td>
+<td><p>FA</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-even"><td><p>S2</p></td>
+<td><p>V2</p></td>
+<td><p>TR</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>S2</p></td>
+<td><p>V2</p></td>
+<td><p>FA</p></td>
+<td><p>16</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="sdev-csv">
+<h3>sdev.csv<a class="headerlink" href="#sdev-csv" title="Link to this heading">#</a></h3>
+<p>The sdev.csv file is similar to pars.csv, but it provides standard
+deviations of parameters rather than their value. These are not
+required and should only be provided when known.</p>
+<p>Consider the previous example of two subjects and two visits. Assume
+uncertainties in the flip angles due to B1-effects are known. Then this
+can be encoded in the sdev.csv file:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">sdev.csv example</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>subject</p></th>
+<th class="head"><p>study</p></th>
+<th class="head"><p>parameter</p></th>
+<th class="head"><p>value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S1</p></td>
+<td><p>V1</p></td>
+<td><p>FA</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>S1</p></td>
+<td><p>V2</p></td>
+<td><p>FA</p></td>
+<td><p>1.5</p></td>
+</tr>
+<tr class="row-even"><td><p>S2</p></td>
+<td><p>V1</p></td>
+<td><p>FA</p></td>
+<td><p>1.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>S2</p></td>
+<td><p>V2</p></td>
+<td><p>FA</p></td>
+<td><p>1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="data-csv">
+<h3>data.csv<a class="headerlink" href="#data-csv" title="Link to this heading">#</a></h3>
+<p>data.csv is the only required file in a dmr folder. It is a data
+dictionary that provides detail on the parameters listed in
+rois.csv, pars.csv and sdev.csv.</p>
+<p>data.csv must list for each parameter a more explicit <em>description</em>,
+a <em>unit</em> and a <em>type</em>. Possible types are <em>str</em>, <em>float</em>, <em>int</em>,
+<em>bool</em>, and <em>complex</em>.</p>
+<p>Other properties can be added to the data.csv dictionary - for instance
+keywords that group parameters, codes such as osipi or DICOM codes, etc.</p>
+<p>Each series and parameter in rois.csv and pars.csv must be listed in
+the data.csv dictionary. So for the example above a minimal data.csv
+file would look like this:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">data.csv example</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>parameter</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>unit</p></th>
+<th class="head"><p>type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>T</p></td>
+<td><p>Signal in a tumour region of interest</p></td>
+<td><p>arbitrary units</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>A</p></td>
+<td><p>Signal in an arterial region of interest</p></td>
+<td><p>arbitrary units</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p>TR</p></td>
+<td><p>Repetition time</p></td>
+<td><p>msec</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>FA</p></td>
+<td><p>Flip angle</p></td>
+<td><p>deg</p></td>
+<td><p>float</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>pydmr</strong> documentation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-another-data-format">Why another data format?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-csv-format">Why a csv format?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-dmr-python-api">What is the .dmr python API?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-i-check-that-my-data-is-dmr-compliant">How can I check that my data is dmr compliant?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-can-i-find-examples-of-dmr-data">Where can I find examples of .dmr data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#details-of-the-dmr-format">Details of the .dmr format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rois-csv">rois.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pars-csv">pars.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sdev-csv">sdev.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-csv">data.csv</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/format.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, pydmr contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

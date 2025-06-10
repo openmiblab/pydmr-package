@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydmr.rw &#8212; pydmr 0.0.3 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=47de8214"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-64ZSJ8Z1MX"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-64ZSJ8Z1MX');
+            </script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-64ZSJ8Z1MX');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pydmr/rw';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/tristan-logo.jpg" class="logo__image only-light" alt="pydmr 0.0.3 documentation - Home"/>
+    <img src="../../_static/tristan-logo.jpg" class="logo__image only-dark pst-js-only" alt="pydmr 0.0.3 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../format.html">
+    The dmr format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../releases/index.html">
+    Releases
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/openmiblab/pydmr" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../format.html">
+    The dmr format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../releases/index.html">
+    Releases
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/openmiblab/pydmr" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pydmr.rw</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pydmr.rw</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextIOWrapper</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydmr.pydict</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dict_keep</span><span class="p">,</span> 
+    <span class="n">dict_reformat</span><span class="p">,</span> 
+    <span class="n">_nested_dict_to_multi_index</span><span class="p">,</span>
+    <span class="n">dict_to_flat</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="write">
+<a class="viewcode-back" href="../../api/pydmr.write.html#pydmr.write">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">dmr</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write data to disk in .dmr format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str): path to .dmr file. If the extension .dmr is not </span>
+<span class="sd">          included, it is added automatically.</span>
+<span class="sd">        dmr (dict): A dictionary with one required key &#39;data&#39; </span>
+<span class="sd">          and optional keys &#39;rois&#39;, &#39;pars&#39;, &#39;sdev&#39;, &#39;columns&#39;. </span>
+<span class="sd">          dmr[&#39;data&#39;] is a dictionary with one item for each </span>
+<span class="sd">          parameter; the key is the parameter and the value is a list </span>
+<span class="sd">          of containing description, unit and python data type. </span>
+<span class="sd">          dmr[&#39;rois&#39;] is a dictionary with one item per ROI; each </span>
+<span class="sd">          ROI is a dictionary on itself which has keys </span>
+<span class="sd">          (subject, study, parameter) and a list or array as value.</span>
+<span class="sd">          dmr[&#39;pars&#39;] is a dictionary with parameters </span>
+<span class="sd">          such as sequence parameters or subject characteristics. </span>
+<span class="sd">          dmr[&#39;sdev&#39;] is a dictionary with standard deviations </span>
+<span class="sd">          of parameters listed in pars.csv. This can include only a </span>
+<span class="sd">          subset of parameters but all parameters in sdev.csv must </span>
+<span class="sd">          also be in pars.csv. Defaults to None.</span>
+<span class="sd">          dmr[&#39;columns&#39;] is a list of headers for optional </span>
+<span class="sd">          columns in the data dictionary. Required if the data </span>
+<span class="sd">          dictionary contains extra columns above the required three </span>
+<span class="sd">          (description, unit, type). </span>
+<span class="sd">        format (str, optional): Formatting of the arguments. </span>
+<span class="sd">          The default (&#39;flat&#39;) is a dictionary with a </span>
+<span class="sd">          multi-index, meaning values (rois, pars, sdev) are </span>
+<span class="sd">          flat dictionaries with a multi-index consisting of </span>
+<span class="sd">          (subject, study, parameter). If format=&#39;nest&#39;, these values </span>
+<span class="sd">          are nested dictionaries with 3 levels. If </span>
+<span class="sd">          format=&#39;table&#39;, the values are a list of lists. </span>
+<span class="sd">          Defaults to &#39;flat&#39;.</span>
+<span class="sd">        </span>
+<span class="sd"> </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: if the data are not dmr-compliant formatted.</span>
+<span class="sd">        ImportError: if an optional package is not installed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># Check dmr compliance</span>
+    <span class="c1">#</span>
+
+    <span class="n">dmr</span> <span class="o">=</span> <span class="n">dict_to_flat</span><span class="p">(</span><span class="n">dmr</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Each dmr[&#39;data&#39;] value must be a list&quot;</span>
+            <span class="p">)</span>     
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">if</span> <span class="s1">&#39;columns&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;columns&#39;</span><span class="p">])</span>    
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Each dmr[&#39;data&#39;] value must have at least </span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2"> elements. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The required &#39;description&#39;, &#39;unit&#39;, &#39;type&#39; and the &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;optional columns </span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        
+    <span class="k">if</span> <span class="s1">&#39;rois&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        <span class="n">rois</span> <span class="o">=</span> <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;rois&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">roi</span> <span class="ow">in</span> <span class="n">rois</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Each rois key must be a 3-element tuple&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">roi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;rois parameter </span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> not in dmr[&#39;data&#39;]. &quot;</span>
+                    <span class="s2">&quot;Please add it to the dictionary.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">rois</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;rois parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> not in data. &quot;</span>
+                    <span class="s2">&quot;Please add it to the dictionary.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">write_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">data_type</span><span class="p">)</span> 
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">write_values</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;rois parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> has wrong data type. &quot;</span>
+                    <span class="s2">&quot;Please correct the data in rois.csv &quot;</span>
+                    <span class="s2">&quot;or correct the data type in data.csv&quot;</span>
+                <span class="p">)</span>
+            
+    <span class="k">if</span> <span class="s1">&#39;pars&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        <span class="n">pars</span> <span class="o">=</span> <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;pars&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">pars</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Each pars key must be a 3-element tuple&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">par</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">par</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> not in dmr[&#39;data&#39;]. &quot;</span>
+                    <span class="s2">&quot;Please add it to the dictionary.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> not in data. &quot;</span>
+                    <span class="s2">&quot;Please add it to the dictionary.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;str&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> must be a string. &quot;</span>
+                        <span class="s2">&quot;Please correct the data in pars.csv &quot;</span>
+                        <span class="s2">&quot;or correct the data type in data.csv&quot;</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> must be a float. &quot;</span>
+                        <span class="s2">&quot;Please correct the data in pars.csv &quot;</span>
+                        <span class="s2">&quot;or correct the data type in data.csv&quot;</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> must be a boolean. &quot;</span>
+                        <span class="s2">&quot;Please correct the data in pars.csv &quot;</span>
+                        <span class="s2">&quot;or correct the data type in data.csv&quot;</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> must be an integer. &quot;</span>
+                        <span class="s2">&quot;Please correct the data in pars.csv &quot;</span>
+                        <span class="s2">&quot;or correct the data type in data.csv&quot;</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;complex&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">complex</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complexfloating</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;pars parameter </span><span class="si">{</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> must be a complex number. &quot;</span>
+                        <span class="s2">&quot;Please correct the data in pars.csv&quot;</span>
+                        <span class="s2">&quot;or correct the data type in data.csv&quot;</span>
+                    <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s1">&#39;sdev&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;pars&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;dmr[&#39;sdev&#39;] should only be provided if dmr[&#39;pars&#39;] are also &quot;</span>
+                <span class="s2">&quot;provided.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">sdev</span> <span class="o">=</span> <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;sdev&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">sdev</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">pars</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;keys in the sdev dictionary must also be in pars.&#39;</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sdev</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sdev values must be float.&quot;</span><span class="p">)</span>
+            
+
+    <span class="c1"># make folder</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;.dmr&quot;</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;.dmr.zip&quot;</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+    <span class="c1">#</span>
+    <span class="c1"># Write data dictionary</span>
+    <span class="c1">#</span>
+
+    <span class="c1"># Build rows</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;columns&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">+=</span> <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;columns&#39;</span><span class="p">]</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+</span> <span class="n">values</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+    <span class="c1"># Write rows to dict.csv</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># Write ROI curves</span>
+    <span class="c1">#</span>
+
+    <span class="k">if</span> <span class="s1">&#39;rois&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        
+        <span class="c1"># Find the longest array length</span>
+        <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">rois</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="c1"># Prepare CSV data (convert dictionary to column format)</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># First 3 rows: keys (tuple elements)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">rois</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">write_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">data_type</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_type</span><span class="o">==</span><span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+                <span class="n">write_values</span> <span class="o">=</span> <span class="n">write_values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+                <span class="n">write_values</span><span class="p">[</span><span class="n">write_values</span><span class="o">==</span><span class="s1">&#39;True&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+                <span class="n">write_values</span><span class="p">[</span><span class="n">write_values</span><span class="o">==</span><span class="s1">&#39;False&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">write_values</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>  <span class="c1"># Pad shorter columns</span>
+            <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="c1"># Transpose to get row-wise structure</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">columns</span><span class="p">)))</span>
+
+        <span class="c1"># Write to CSV</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rois.csv&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># Write parameters</span>
+    <span class="c1"># </span>
+
+    <span class="k">if</span> <span class="s1">&#39;pars&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;study&#39;</span><span class="p">,</span> <span class="s1">&#39;parameter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">],</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;str&#39;</span><span class="p">:</span>
+                <span class="n">write_value</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="p">:</span>
+                <span class="n">write_value</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+                <span class="n">write_value</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
+                <span class="n">write_value</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;complex&#39;</span><span class="p">:</span>
+                <span class="n">write_value</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">write_value</span><span class="p">]</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;pars.csv&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;sdev&#39;</span> <span class="ow">in</span> <span class="n">dmr</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;study&#39;</span><span class="p">,</span> <span class="s1">&#39;parameter&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">],</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sdev</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;sdev.csv&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+    <span class="c1"># Zip and delete original</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;.dmr&quot;</span><span class="p">,</span> <span class="s2">&quot;zip&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="read">
+<a class="viewcode-back" href="../../api/pydmr.read.html#pydmr.read">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">study</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read .dmr data from disk.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str): Path to .dmr file where the data are </span>
+<span class="sd">        saved. The extensions do not need to be included.</span>
+<span class="sd">        format (str, optional): Formatting of the returned results. </span>
+<span class="sd">          The default (&#39;flat&#39;) returns a dictionary with a </span>
+<span class="sd">          multi-index, meaning values (rois, pars, sdev) are returned </span>
+<span class="sd">          as flat dictionaries with a multi-index consisting of </span>
+<span class="sd">          (subject, study, parameter). If format=&#39;nest&#39;, these values </span>
+<span class="sd">          are returned as nested dictionaries with 3 levels. If </span>
+<span class="sd">          format=&#39;table&#39;, the values are returned as a list of lists.</span>
+<span class="sd">          If format is &#39;pandas&#39; the results are pandas dataframes.  </span>
+<span class="sd">          Defaults to &#39;flat&#39;.</span>
+<span class="sd">        subject (str or list, optional): subject or list of subjects </span>
+<span class="sd">          to return. If not provided, all subjects are returned. </span>
+<span class="sd">          Defaults to None.</span>
+<span class="sd">        study (str or list, optional): subject or list of subjects </span>
+<span class="sd">          to return. If not provided, all studies are returned. </span>
+<span class="sd">          Defaults to None.</span>
+<span class="sd">        parameter (str or list, optional): parameter or list of </span>
+<span class="sd">          parameters to return. If not provided, all parameters are returned. </span>
+<span class="sd">          Defaults to None.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the data on disk are not correctly formatted.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: A dictionary with one item for each of the csv files </span>
+<span class="sd">          in the dmr file - keys are either &#39;data&#39;, &#39;rois&#39;, &#39;pars&#39;, </span>
+<span class="sd">          &#39;sdev&#39;. The optional key &#39;columns&#39; is returned as well if</span>
+<span class="sd">          the data dictionary has optional columns, in which case it </span>
+<span class="sd">          lists the names of those extra columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;.dmr.zip&quot;</span><span class="p">:</span>
+        <span class="n">read_path</span> <span class="o">=</span> <span class="n">path</span>
+    
+    <span class="c1"># If the filename is provided with the .dmr extension alone, add the .zip</span>
+    <span class="k">elif</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;.dmr&quot;</span><span class="p">:</span>
+        <span class="n">read_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;.zip&quot;</span>
+
+    <span class="c1"># If filename is provided without extensions, add them both</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">read_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;.dmr.zip&quot;</span>
+
+
+    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">read_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+        
+        <span class="c1"># Check files</span>
+        <span class="n">csv_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">)]</span>  
+        <span class="k">if</span> <span class="s1">&#39;data.csv&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;A .dmr file must contain a data.csv file.&quot;</span><span class="p">)</span>    
+        
+        
+        <span class="c1"># Read data dictionary</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="n">z</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">TextIOWrapper</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">dict_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+            <span class="n">data_headers</span> <span class="o">=</span> <span class="n">dict_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dict_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span> 
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_headers</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Each data_dict row must have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_headers</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;elements </span><span class="si">{</span><span class="n">data_headers</span><span class="si">}</span><span class="s2">. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Correct the data dictionary in data.csv&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;complex&#39;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;data type </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2"> is not allowed. Correct &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;the data dictionary in data.csv&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+
+        <span class="k">if</span> <span class="s1">&#39;pars.csv&#39;</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span> 
+            <span class="n">pars</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">with</span> <span class="n">z</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;pars.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">TextIOWrapper</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">pars_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+                <span class="n">pars_list</span> <span class="o">=</span> <span class="n">pars_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1"># do not return headers</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pars_list</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Error in pars row </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">. &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;Each row must have 4 elements: &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;subject, study, parameter, value. &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;Correct the data in pars.csv&quot;</span>
+                        <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;parameter </span><span class="si">{</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> is not listed in the &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;data dictionary in data.csv&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">data_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">data_type</span><span class="o">==</span><span class="s1">&#39;str&#39;</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">data_type</span><span class="o">==</span><span class="s1">&#39;float&#39;</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="n">data_type</span><span class="o">==</span><span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;0&#39;</span><span class="p">:</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;Boolean value </span><span class="si">{</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2"> is not allowed. &quot;</span>
+                                <span class="s2">&quot;Possible values are 1 or 0. &quot;</span>
+                                <span class="s2">&quot;Correct the data in pars.csv&quot;</span>
+                            <span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">data_type</span><span class="o">==</span><span class="s1">&#39;int&#39;</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="n">data_type</span><span class="o">==</span><span class="s1">&#39;complex&#39;</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="n">pars</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="mi">3</span><span class="p">])]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">if</span> <span class="s1">&#39;rois.csv&#39;</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span> 
+            <span class="n">rois</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">with</span> <span class="n">z</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;rois.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">TextIOWrapper</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">rois_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rois_list</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Extract headers (first 3 rows)</span>
+                    <span class="c1"># Transpose first 3 rows to get column-wise headers</span>
+                    <span class="n">headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">rois_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span>  
+                    <span class="c1"># Extract data (from row 3 onward) and convert to NumPy arrays</span>
+                    <span class="n">rois</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">rois_list</span><span class="p">[</span><span class="mi">3</span><span class="p">:])):</span>
+                        <span class="k">if</span> <span class="n">header</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;roi parameter </span><span class="si">{</span><span class="n">header</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> is not listed in the &quot;</span>
+                                <span class="sa">f</span><span class="s2">&quot;data dictionary in data.csv. Please update the dictionary.&quot;</span>
+                            <span class="p">)</span>
+                        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">val</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">col</span> <span class="k">if</span> <span class="n">val</span><span class="p">])</span>
+                        <span class="n">data_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">header</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+                            <span class="n">rois</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">rois</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">data_type</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="s1">&#39;sdev.csv&#39;</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span> 
+            <span class="k">if</span> <span class="s1">&#39;pars.csv&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;A file sdev.csv is included in the .dmr file &quot;</span>
+                    <span class="s2">&quot;without a corresponding pars.csv file. &quot;</span>
+                    <span class="s2">&quot;Please remove the sdev.csv file or add a &quot;</span>
+                    <span class="s2">&quot;pars.csv file.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">sdev</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">with</span> <span class="n">z</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sdev.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">TextIOWrapper</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">sdev_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+                <span class="n">sdev_list</span> <span class="o">=</span> <span class="n">sdev_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1"># do not return headers</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sdev_list</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Each sdev row must have 4 elements: &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;subject, study, parameter, sdev. &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;Correct the data in sdev.csv&quot;</span>
+                        <span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pars</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;parameter </span><span class="si">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span><span class="si">}</span><span class="s2"> has a sdev but &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;no corresponding value in pars.csv.&quot;</span>
+                        <span class="p">)</span> 
+                    <span class="n">sdev</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="mi">3</span><span class="p">])]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="c1"># Create dictionary</span>
+        <span class="n">dmr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_headers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;columns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_headers</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="s1">&#39;pars.csv&#39;</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span>
+            <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;pars&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pars</span>
+        <span class="k">if</span> <span class="s1">&#39;rois.csv&#39;</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span>
+            <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;rois&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rois</span>
+        <span class="k">if</span> <span class="s1">&#39;sdev.csv&#39;</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span>
+            <span class="n">dmr</span><span class="p">[</span><span class="s1">&#39;sdev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdev</span>
+
+        <span class="c1"># Extract requested fields</span>
+        <span class="n">dmr</span> <span class="o">=</span> <span class="n">dict_keep</span><span class="p">(</span><span class="n">dmr</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">study</span><span class="p">,</span> <span class="n">parameter</span><span class="p">)</span>
+
+        <span class="c1"># Convert to required return format</span>
+        <span class="n">dmr</span> <span class="o">=</span> <span class="n">dict_reformat</span><span class="p">(</span><span class="n">dmr</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dmr</span></div>
+
+
+
+
+
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, pydmr contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
