@@ -1,3 +1,4 @@
+import numpy as np
 try:
     import pandas as pd
     import_error = False
@@ -123,7 +124,7 @@ def dict_reformat(dmr, format):
     return dmr
 
 
-def dict_drop(data:dict, subject, study, parameter):
+def dict_drop(data:dict, subject, study, parameter, **kwargs):
 
     if parameter is not None:
         if isinstance(parameter, str):
@@ -150,10 +151,29 @@ def dict_drop(data:dict, subject, study, parameter):
         if 'sdev' in data:
             data['sdev'] = {k:v for k,v in data['sdev'].items() if k[1] not in study}
 
+    for attr, vals in kwargs.items():
+        if np.isscalar(vals):
+            vals = [vals]    
+
+        # Find the index of the attribute in the list of columns  
+        cols = ['description',	'unit',	'type']
+        if 'columns' in data:
+            cols += data['columns']
+        attr_idx = cols.index(attr)
+
+        # Retain only data rows if the parameter has the correct attribute
+        if 'pars' in data:
+            data['pars'] = {k:v for k,v in data['pars'].items() if data['data'][k[2]][attr_idx] not in vals}
+        if 'sdev' in data:
+            data['sdev'] = {k:v for k,v in data['sdev'].items() if data['data'][k[2]][attr_idx] not in vals}
+
+        # Reduce the data dictionary to the values to keep
+        data['data'] = {k:v for k,v in data['data'].items() if data['data'][k][attr_idx] not in vals}
+
     return data
 
 
-def dict_keep(data:dict, subject, study, parameter):
+def dict_keep(data:dict, subject, study, parameter, **kwargs):
 
     if parameter is not None:
         if isinstance(parameter, str):
@@ -179,6 +199,25 @@ def dict_keep(data:dict, subject, study, parameter):
             data['pars'] = {k:v for k,v in data['pars'].items() if k[1] in study}
         if 'sdev' in data:
             data['sdev'] = {k:v for k,v in data['sdev'].items() if k[1] in study}
+
+    for attr, vals in kwargs.items():
+        if np.isscalar(vals):
+            vals = [vals]    
+
+        # Find the index of the attribute in the list of columns  
+        cols = ['description',	'unit',	'type']
+        if 'columns' in data:
+            cols += data['columns']
+        attr_idx = cols.index(attr)
+
+        # Retain only data rows if the parameter has the correct attribute
+        if 'pars' in data:
+            data['pars'] = {k:v for k,v in data['pars'].items() if data['data'][k[2]][attr_idx] in vals}
+        if 'sdev' in data:
+            data['sdev'] = {k:v for k,v in data['sdev'].items() if data['data'][k[2]][attr_idx] in vals}
+
+        # Reduce the data dictionary to the values to keep
+        data['data'] = {k:v for k,v in data['data'].items() if data['data'][k][attr_idx] in vals}
 
     return data
 
