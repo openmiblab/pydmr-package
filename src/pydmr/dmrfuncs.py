@@ -3,30 +3,73 @@ import pydmr.rw
 import pydmr.pydict
 
 
-def metadata(file, parameters, attribute):
+def pars_to_wide(dmr_file, wide_file):
+    """Save parameter values in wide-format csv shape
+
+    Args:
+        dmr_file (dmr file name): Source file
+        wide_file (csv file name): Output file
+    """
+    table_long = pydmr.read(dmr_file, format='pandas')['pars']
+    table_wide = table_long.pivot(index=['subject', 'study'], columns='parameter', values='value')
+    table_wide.to_csv(wide_file)
+
+
+def pars_to_long(dmr_file, long_file):
+    """Save parameter values in long-format csv shape
+
+    Args:
+        dmr_file (dmr file name): Source file
+        long_file (csv file name): Output file
+    """
+    dmr = pydmr.read(dmr_file, format='pandas')
+    table_long = dmr['pars']
+    parameters = table_long.parameter.values.tolist()
+    extra_columns = metadata(dmr_file, parameters)
+    cols = ['description', 'unit', 'type']
+    if 'columns' in dmr:
+        cols += dmr['columns']
+    for c, col in enumerate(cols):
+        table_long[col] = [extra_columns[p][c] for p in range(len(parameters))]
+    table_long.to_csv(long_file, index=False)
+
+
+def metadata(file, parameters, attribute=None):
     """Return given metadata for a list of parameters
 
     Args:
         file (str): dmr file
         parameters (str or list): parameter or list of parameters for 
             which the attribute is requested.
-        attribute (str): attribuite in the metadata to return.
+        attribute (str or list): attribute(s) in the metadata to return. 
+            If this is None, all metadata are returned.
 
     Returns:
         str or list: metadata values for all parameters in the list
     """
-    data = pydmr.rw.read(file)
+    dmr = pydmr.rw.read(file)
     cols = ['description', 'unit', 'type']
-    if 'columns' in data:
-        cols += data['columns']
+    if 'columns' in dmr:
+        cols += dmr['columns']
+    if attribute is None:
+        attribute = cols
     ind = {item: index for index, item in enumerate(cols)}
-    if isinstance(parameters, str):
-        return data['data'][parameters][ind[attribute]]
+    if isinstance(attribute, str):
+        if isinstance(parameters, str):
+            return dmr['data'][parameters][ind[attribute]]
+        else:
+            return [dmr['data'][p][ind[attribute]] for p in parameters]
     else:
-        return [data['data'][p][ind[attribute]] for p in parameters]
+        if isinstance(parameters, str):
+            return [dmr['data'][parameters][ind[a]] for a in attribute]
+        else:
+            return [
+                [dmr['data'][p][ind[a]] for a in attribute]
+                for p in parameters
+            ]       
 
 
-def drop(file, result=None, subject=None, study=None, parameter=None):
+def drop(file, result=None, subject=None, study=None, parameter=None, **kwargs):
     """Drop subjects, studies or parameters from the dataset
 
     Args:
@@ -39,12 +82,14 @@ def drop(file, result=None, subject=None, study=None, parameter=None):
             to drop. Defaults to None.
         parameter (str or list, optional): parameter or list of 
             parameters to drop. Defaults to None.
+        kwargs (dict): drop parameters based on attributes in the 
+            data dictionary.
     Returns:
         str : the resulting file
     """
 
     data = pydmr.rw.read(file)
-    data = pydmr.pydict.dict_drop(data, subject, study, parameter)
+    data = pydmr.pydict.dict_drop(data, subject, study, parameter, **kwargs)
     if result is None:
         pydmr.rw.write(file, data)
         return file
@@ -53,7 +98,7 @@ def drop(file, result=None, subject=None, study=None, parameter=None):
         return result
 
 
-def keep(file, result=None, subject=None, study=None, parameter=None):
+def keep(file, result=None, subject=None, study=None, parameter=None, **kwargs):
     """Select specific subjects, studies or parameters from the dataset
 
     Args:
@@ -66,11 +111,13 @@ def keep(file, result=None, subject=None, study=None, parameter=None):
             to keep. Defaults to None.
         parameter (str or list, optional): parameter or list of 
             parameters to keep. Defaults to None.
+        kwargs (dict): select parameters based on attributes in the 
+            data dictionary.
     Returns:
         str : the resulting file
     """
     data = pydmr.rw.read(file)
-    data = pydmr.pydict.dict_keep(data, subject, study, parameter)
+    data = pydmr.pydict.dict_keep(data, subject, study, parameter, **kwargs)
     if result is None:
         pydmr.rw.write(file, data)
         return file

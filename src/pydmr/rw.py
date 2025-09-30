@@ -74,7 +74,7 @@ def write(path:str, dmr:dict, format='flat'):
             raise ValueError(
                 f"Each dmr['data'] value must have at least {length} elements. "
                 f"The required 'description', 'unit', 'type' and the "
-                f"optional columns {columns}."
+                f"optional columns."
             )
         
     if 'rois' in dmr:
