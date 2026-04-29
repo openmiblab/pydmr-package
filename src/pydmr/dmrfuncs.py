@@ -186,7 +186,12 @@ def concat(
 
     if cleanup:
         for file in files:
-            os.remove(file)
+            if file[-4:]=='.dmr':
+                os.remove(file + '.zip')
+            elif file[-8:] =='.dmr.zip':
+                os.remove(file)
+            else:
+                os.remove(file + '.dmr.zip')
 
     return result
 
