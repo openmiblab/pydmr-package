@@ -14,6 +14,17 @@ def pars_to_wide(dmr_file, wide_file):
     table_wide = table_long.pivot(index=['subject', 'study'], columns='parameter', values='value')
     table_wide.to_csv(wide_file)
 
+def sdev_to_wide(dmr_file, wide_file):
+    """Save parameter values in wide-format csv shape
+
+    Args:
+        dmr_file (dmr file name): Source file
+        wide_file (csv file name): Output file
+    """
+    table_long = pydmr.read(dmr_file, format='pandas')['sdev']
+    table_wide = table_long.pivot(index=['subject', 'study'], columns='parameter', values='value')
+    table_wide.to_csv(wide_file)
+
 
 def pars_to_long(dmr_file, long_file):
     """Save parameter values in long-format csv shape
